@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: instaapp_app
+    volumes:
+      - ../:/var/www
+    working_dir: /var/www
+    ports:
+      - "9000:9000"
+    networks:
+      - instaapp
+
+  nginx:
+    image: nginx:alpine
+    container_name: instaapp_nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ../:/var/www
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - instaapp
+
+  db:
+    image: mysql:8.0
+    container_name: instaapp_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: instaapp
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: instaapp
+      MYSQL_PASSWORD: instaapp
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - instaapp
+
+networks:
+  instaapp:
+    driver: bridge
+
+volumes:
+  db_data:
