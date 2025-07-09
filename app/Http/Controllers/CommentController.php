@@ -17,17 +17,18 @@ class CommentController extends Controller
         $this->commentService = $commentService;
     }
     
+    /**
+     * Menyimpan komentar baru pada postingan tertentu.
+     *
+     * @param \Illuminate\Http\Request $request Objek request HTTP yang berisi data komentar.
+     * @param \App\Models\Post $post Postingan yang akan dikomentari.
+     * @return \Illuminate\Http\RedirectResponse Redirect kembali ke halaman sebelumnya setelah komentar disimpan.
+     */
     public function store(Request $request, Post $post)
     {
         $request->validate(['content' => 'required']);
 
         $this->commentService->addComment($post, $request->only('content'));
-
-        // $post->comments()->create([
-        //     'user_id' => Auth::user()->id,
-        //     'content' => $request->content,
-        //     'post_id' => $post->id,
-        // ]);
 
         return back();
     }
