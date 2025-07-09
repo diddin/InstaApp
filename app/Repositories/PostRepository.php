@@ -32,4 +32,13 @@ class PostRepository implements PostRepositoryInterface
 
         return $post->delete();
     }
+
+    public function findWithRelations(Post $post): Post
+    {
+        return $post->load([
+            'user',
+            'likes',
+            'comments' => fn($q) => $q->latest()->with('user')
+        ]);
+    }
 }

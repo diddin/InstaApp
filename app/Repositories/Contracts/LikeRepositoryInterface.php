@@ -6,5 +6,5 @@ use App\Models\Post;
 
 interface LikeRepositoryInterface
 {
-    public function toggle(Post $post, int $userId): void;
+    public function toggle(Post $post, int $userId): bool;
 }

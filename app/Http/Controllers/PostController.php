@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Services\PostService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -22,10 +19,8 @@ class PostController extends Controller
         $this->postService = $postService;
     }
 
-
     public function index()
     {
-        //$posts = Post::with(['user', 'likes', 'comments'])->latest()->get();
         $posts = $this->postService->getAll();
         return view('posts.index', compact('posts'));
     }

@@ -24,9 +24,9 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-    Route::get('/posts/create', [PostController::class, 'create']);
-    Route::post('/posts', [PostController::class, 'store']);
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
-    Route::post('/posts/{post}/like', [LikeController::class, 'toggle']);
-    Route::post('/posts/{post}/comments', [CommentController::class, 'store']);
+    Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.toggle');
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('posts.comments.store');
 });

@@ -1,12 +1,11 @@
 <x-insta-layout>
-    <h2 class="text-2xl font-bold mb-4">Buat Postingan Baru</h2>
+    <h2 class="text-2xl font-bold mb-4 py-4">Buat Postingan Baru</h2>
 
-    <form method="POST" action="/posts" enctype="multipart/form-data" class="bg-white p-6 rounded shadow">
+    <form method="POST" action="/posts" enctype="multipart/form-data" class="bg-white shadow mb-6 overflow-hidden max-w-[470px]">
         @csrf
-
         <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700">Caption</label>
-            <textarea name="caption" rows="3" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring focus:ring-blue-200"></textarea>
+            <label class="block text-sm font-medium text-gray-700 p-2">Caption</label>
+            <textarea name="caption" rows="3" class="mt-1 block w-full rounded border-gray-100 shadow-sm focus:ring focus:ring-blue-200"></textarea>
             @error('caption')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror

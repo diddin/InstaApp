@@ -34,4 +34,10 @@ class PostService
     {
         return $this->postRepo->delete($post);
     }
+
+    public function getDetailWithRelations(Post $post): Post
+    {
+        return $this->postRepo->findWithRelations($post);
+    }
+
 }

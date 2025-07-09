@@ -1,0 +1,91 @@
+@token = 2|pjygNIIiqa0S3CkW11yuw5Y3IV4XtejocM8iV2Bdfb659674
+
+### 🧾 LOGIN USER (optional, jika pakai Sanctum)
+POST http://localhost:8000/api/v1/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password"
+}
+
+###
+
+### 📰 GET all posts
+GET http://localhost:8000/api/v1/posts
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### 📤 CREATE post
+POST http://localhost:8000/api/v1/posts
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data
+
+--boundary
+Content-Disposition: form-data; name="caption"
+
+Caption via REST Client
+--boundary
+Content-Disposition: form-data; name="image"; filename="photo.jpg"
+Content-Type: image/jpeg
+
+< ./photo.jpg
+--boundary--
+
+###
+
+### 🧾 GET single post
+GET http://localhost:8000/api/v1/posts/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### ✏️ UPDATE post
+PUT http://localhost:8000/api/v1/posts/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "caption": "Updated caption via REST"
+}
+
+###
+
+### ❌ DELETE post
+DELETE http://localhost:8000/api/v1/posts/1
+Authorization: Bearer {{token}}
+
+###
+
+### 💬 ADD comment to post
+POST http://localhost:8000/api/v1/posts/1/comments
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "content": "Komentar via REST"
+}
+
+###
+
+### 💬 GET comments for post
+GET http://localhost:8000/api/v1/posts/1/comments
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### ❌ DELETE comment
+DELETE http://localhost:8000/api/v1/posts/1/comments/5
+Authorization: Bearer {{token}}
+
+###
+
+### ❤️ TOGGLE like
+POST http://localhost:8000/api/v1/posts/1/like
+Authorization: Bearer {{token}}
+
