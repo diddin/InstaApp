@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Services\PostService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Post;
 
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -13,9 +14,19 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class PostController extends Controller
 {
     use AuthorizesRequests;
+
+    protected $postService;
+
+    public function __construct(PostService $postService)
+    {
+        $this->postService = $postService;
+    }
+
+
     public function index()
     {
-        $posts = \App\Models\Post::with(['user', 'likes', 'comments'])->latest()->get();
+        //$posts = Post::with(['user', 'likes', 'comments'])->latest()->get();
+        $posts = $this->postService->getAll();
         return view('posts.index', compact('posts'));
     }
 
@@ -31,12 +42,7 @@ class PostController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $path = $request->file('image')->store('images', 'public');
-
-        Auth::user()->posts()->create([
-            'caption' => $request->caption,
-            'image' => $path,
-        ]);
+        $this->postService->store($request->only('caption', 'image'));
 
         return redirect()->route('posts.index')->with('success', 'Post berhasil diupload!');
     }
@@ -55,9 +61,7 @@ class PostController extends Controller
             'caption' => 'nullable|string|max:255',
         ]);
 
-        $post->update([
-            'caption' => $request->caption,
-        ]);
+        $this->postService->update($post, $request->only('caption'));
 
         return redirect()->route('posts.index')->with('success', 'Post berhasil diperbarui.');
     }
@@ -66,9 +70,7 @@ class PostController extends Controller
     {
         $this->authorize('delete', $post);
 
-        if ($post->image && Storage::disk('public')->exists($post->image)) {
-            Storage::disk('public')->delete($post->image);
-        }
+        $this->postService->destroy($post);
 
         $post->delete();
 
