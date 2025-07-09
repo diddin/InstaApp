@@ -1,3 +1,82 @@
+# 📸 InstaApp
+
+InstaApp adalah aplikasi sederhana seperti Instagram yang dibangun menggunakan Laravel.  
+Kamu bisa membuat akun, upload gambar, memberi like, dan komentar di postingan pengguna lain.
+
+---
+
+## 🚀 Fitur
+
+- ✅ Autentikasi (register & login) — menggunakan Laravel Breeze
+- 🖼️ Post gambar dengan caption
+- ❤️ Like & 💬 komentar di setiap post
+- 🔒 Hak akses untuk edit/hapus post & komentar
+- 🌐 API versi v1 untuk frontend atau aplikasi mobile
+
+---
+
+## 📦 Teknologi
+
+- Laravel 10
+- Breeze (Blade + Alpine.js)
+- TailwindCSS
+- REST API (versi v1)
+- GitHub Actions (CI/CD)
+
+---
+
+## 🛠️ Cara Menjalankan
+
+```bash
+git clone https://github.com/namamu/InstaApp.git
+cd InstaApp
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan serve
+```
+
+Pastikan database sudah dikonfigurasi di `.env`.
+
+---
+
+## 🔐 API Authentication
+
+Menggunakan Laravel Sanctum untuk login dan akses API:
+- Endpoint: `POST /api/login`
+- Header: `Authorization: Bearer {token}`
+
+---
+
+## 🌍 API Endpoint Contoh
+
+- `GET /api/posts` — Lihat semua postingan
+- `POST /api/posts` — Buat post baru
+- `GET /api/posts/{id}` — Detail post
+- `POST /api/posts/{id}/like` — Like atau unlike post
+- `POST /api/posts/{id}/comments` — Tambah komentar
+- `DELETE /api/posts/{id}/comments/{commentId}` — Hapus komentar
+
+---
+
+## ⚙️ CI/CD
+
+Project ini otomatis ter-*deploy* ke staging & production saat push ke branch:
+- `develop` → Staging
+- `main` → Production
+
+Menggunakan GitHub Actions dengan SSH deploy.
+
+---
+
+## 🙏 Terima Kasih
+
+InstaApp adalah proyek latihan pribadi — silakan fork dan eksplorasi sendiri!  
+Terinspirasi dari UI sederhana Instagram, tapi versi ringan dan Laravel-native.
+
+---
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
