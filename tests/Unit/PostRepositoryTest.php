@@ -69,7 +69,8 @@ class PostRepositoryTest extends TestCase
         $result = $this->repository->delete($post);
 
         $this->assertTrue($result);
-        Storage::disk('public')->assertMissing($imagePath);
+        //Storage::disk('public')->assertMissing($imagePath);
+        $this->assertFalse(Storage::disk('public')->exists($imagePath));
         $this->assertDatabaseMissing('posts', ['id' => $post->id]);
     }
 

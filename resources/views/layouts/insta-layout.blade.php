@@ -16,7 +16,11 @@
     
     <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <h1 class="text-xl font-semibold">InstaApp</h1>
+            <div>
+                <a href="/posts" class="flex items-center space-x-2">
+                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                </a>
+            </div>
             <nav class="space-x-4">
                 <a href="/posts" class="text-black-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline">
